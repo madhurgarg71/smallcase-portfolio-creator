@@ -31,8 +31,9 @@ export function getEpsData() {
 
 export function getPriceData() {
   let priceData = []
+  let i = 0
   for (let stock in data.price) {
-    priceData.push({ name: stock, price: data.price[stock] })
+    priceData.push({ id: `s_${i++}_item`, name: stock, price: data.price[stock] })
   }
   return priceData
 }

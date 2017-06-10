@@ -1,14 +1,30 @@
 import React from 'react'
+import { getIcon } from './utils'
 
-const TableItem = () => {
-  return (
-    <div className='row'>
-      <div className='cell'>stock</div>
-      <div className='cell'>price</div>
-      <div className='cell'>shares</div>
-      <div className='cell'>weight</div>
-    </div>
-  )
+class TableItem extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    const { item } = this.props
+    return (
+      <div className='row'>
+        <div className='cell'>{ item.name }</div>
+        <div className='cell'>{ item.price }</div>
+        <div className='cell'>
+          <div className='counter'>
+            <span onClick={() => { this.props.incrementor(item) }}>+</span>
+            <span>{ item.shares }</span>
+            <span onClick={() => { this.props.decerementor(item) }}>-</span>
+          </div>
+        </div>
+        <div className='cell'>{ item.weightage }</div>
+        <div className='cell'>
+          <span onClick={() => { this.props.removePortfolioItem(item.id) }}>x</span>
+        </div>
+      </div>
+    )
+  }
 }
 
 export default TableItem
