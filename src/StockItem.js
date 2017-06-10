@@ -5,6 +5,7 @@ class StockItem extends React.Component {
   constructor(props) {
     super(props)
   }
+
   render() {
     const { stock } = this.props
     return (

@@ -7,9 +7,11 @@ class StocksPool extends React.Component {
     super(props)
     this.handleClick = this.handleClick.bind(this)
   }
+
   handleClick(stock) {
     this.props.addPortfolioItem(stock)
   }
+
   render() {
     const { priceData } = this.props
     return (
@@ -28,7 +30,11 @@ class StocksPool extends React.Component {
         <div className='stocks-pool'>
           {
             priceData.map((item, i) => {
-              return <StockItem addPortfolioItem={this.handleClick} stock={item} key={`stock${i}`} />
+              return <StockItem
+                addPortfolioItem={this.handleClick}
+                stock={item}
+                key={`stock${i}`}
+              />
             })
           }
         </div>

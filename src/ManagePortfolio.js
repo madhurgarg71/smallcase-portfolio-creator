@@ -7,22 +7,26 @@ class ManagePortfolio extends React.Component {
     this.state = {
       portfolioItemList: props.portfolioItemList
     }
-    this.incrementor = this.incrementor.bind(this)
-    this.decerementor = this.decerementor.bind(this)
+    this.shareIncrementor = this.shareIncrementor.bind(this)
+    this.shareDecerementor = this.shareDecerementor.bind(this)
     this.removePortfolioItem = this.removePortfolioItem.bind(this)
   }
   componentWillReceiveProps(nextProps) {
     this.setState({ portfolioItemList: nextProps.portfolioItemList })
   }
-  incrementor(stock) {
-    this.props.incrementor(stock)
+
+  shareIncrementor(stock) {
+    this.props.shareIncrementor(stock)
   }
-  decerementor(stock) {
-    this.props.decerementor(stock)
+
+  shareDecerementor(stock) {
+    this.props.shareDecerementor(stock)
   }
+
   removePortfolioItem(id) {
     this.props.removePortfolioItem(id)
   }
+
   render() {
     const { portfolioItemList } = this.state
     return (
@@ -39,8 +43,8 @@ class ManagePortfolio extends React.Component {
           {
             portfolioItemList.map((item, i) => {
               return <TableItem
-                incrementor={this.incrementor}
-                decerementor={this.decerementor}
+                shareIncrementor={this.shareIncrementor}
+                shareDecerementor={this.shareDecerementor}
                 removePortfolioItem={this.removePortfolioItem}
                 item={item}
                 key={`tableItem${i}`} />

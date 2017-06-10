@@ -5,6 +5,7 @@ class TableItem extends React.Component {
   constructor(props) {
     super(props)
   }
+
   render() {
     const { item } = this.props
     return (
@@ -13,9 +14,9 @@ class TableItem extends React.Component {
         <div className='cell'>{ item.price }</div>
         <div className='cell'>
           <div className='counter'>
-            <span onClick={() => { this.props.incrementor(item) }}>+</span>
+            <span onClick={() => { this.props.shareIncrementor(item) }}>+</span>
             <span>{ item.shares }</span>
-            <span onClick={() => { this.props.decerementor(item) }}>-</span>
+            <span onClick={() => { this.props.shareDecerementor(item) }}>-</span>
           </div>
         </div>
         <div className='cell'>{ item.weightage }</div>

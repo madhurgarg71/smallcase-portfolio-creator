@@ -16,8 +16,8 @@ export default class App extends Component {
     this.updatePortfolioItemList = this.updatePortfolioItemList.bind(this)
     this.removePortfolioItem = this.removePortfolioItem.bind(this)
     this.addPortfolioItem = this.addPortfolioItem.bind(this)
-    this.decerementor = this.decerementor.bind(this)
-    this.incrementor = this.incrementor.bind(this)
+    this.shareDecerementor = this.shareDecerementor.bind(this)
+    this.shareIncrementor = this.shareIncrementor.bind(this)
     this.removeStock = this.removeStock.bind(this)
     this.addStock = this.addStock.bind(this)
   }
@@ -87,12 +87,13 @@ export default class App extends Component {
     this.addStock(stock)
   }
 
-  incrementor(stock) {
+  shareIncrementor(stock) {
     const updatedStock = Object.assign({}, stock)
     updatedStock.shares += 1
     this.updatePortfolioItemList(updatedStock)
   }
-  decerementor(stock) {
+
+  shareDecerementor(stock) {
     const updatedStock = Object.assign({}, stock)
     if (updatedStock.shares > 1) {
       updatedStock.shares -= 1
@@ -115,16 +116,19 @@ export default class App extends Component {
       <div className='portfolio-wrapper'>
         <div className='portfolio-container'>
           <h3>smallcase Portfolio Builder</h3>
+
           <StocksPool
             addPortfolioItem={this.addPortfolioItem}
             priceData={priceData}
           />
+
           <ManagePortfolio
-            incrementor={this.incrementor}
-            decerementor={this.decerementor}
+            shareIncrementor={this.shareIncrementor}
+            shareDecerementor={this.shareDecerementor}
             portfolioItemList={portfolioItemList}
             removePortfolioItem={this.removePortfolioItem}
           />
+
         </div>
       </div>
     )
