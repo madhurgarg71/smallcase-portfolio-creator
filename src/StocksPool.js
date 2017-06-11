@@ -13,7 +13,7 @@ class StocksPool extends React.Component {
   }
 
   render() {
-    const { priceData } = this.props
+    const { stocksData } = this.props
     return (
       <section>
         <span className='section-sticker'>pick stocks</span>
@@ -29,7 +29,7 @@ class StocksPool extends React.Component {
 
         <div className='stocks-pool'>
           {
-            priceData.map((item, i) => {
+            stocksData.map((item, i) => {
               return <StockItem
                 addPortfolioItem={this.handleClick}
                 stock={item}

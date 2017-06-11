@@ -1,6 +1,8 @@
 import React from 'react'
 import { data } from './db'
+import Moment from 'moment'
 console.log(data)
+
 
 export function getIcon(name) {
   switch (name) {
@@ -44,4 +46,32 @@ export function getHistoricalData() {
     historicalData.push({ name: stock, historical: data.historical[stock] })
   }
   return historicalData
+}
+
+function mapHistoricPriceToDate(points) {
+  const transformedPoints = points.map(item => {
+    return {
+      [`${Moment(item.date).format('MMM Do YY')}`]: item.price
+    }
+  })
+  return transformedPoints
+}
+
+export function constructStocksData() {
+  const stocksData = []
+  let i = 0
+  for(let stockName in data.price) {
+    stocksData.push({
+      id: `s_${i++}_item`,
+      price: data.price[stockName],
+      eps: data.eps[stockName],
+      name: stockName,
+      historical: mapHistoricPriceToDate(data.historical[stockName].point)
+    })
+  }
+  return stocksData
+}
+
+export function getStocksData() {
+  return constructStocksData()
 }

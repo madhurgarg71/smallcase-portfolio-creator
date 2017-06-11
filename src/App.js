@@ -1,25 +1,28 @@
 import React, { Component } from 'react'
 import './index.scss'
-import { getPriceData } from './utils'
+import { getStocksData } from './utils'
 
 import StocksPool from './StocksPool'
 import ManagePortfolio from './ManagePortfolio'
-
 
 export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       portfolioItemList: [],
-      priceData: getPriceData()
+      stocksData: getStocksData(),
+      netWorth: 0.00,
+      PE_Ratio: 0.00
     }
-    this.updatePortfolioItemList = this.updatePortfolioItemList.bind(this)
+    this.updatePortfolioItem = this.updatePortfolioItem.bind(this)
     this.removePortfolioItem = this.removePortfolioItem.bind(this)
     this.addPortfolioItem = this.addPortfolioItem.bind(this)
     this.shareDecerementor = this.shareDecerementor.bind(this)
     this.shareIncrementor = this.shareIncrementor.bind(this)
     this.removeStock = this.removeStock.bind(this)
     this.addStock = this.addStock.bind(this)
+    this.updateMetric = this.updateMetric.bind(this)
+    this.setWeightage = this.setWeightage.bind(this)
   }
 
   addPortfolioItem(stock) {
@@ -29,28 +32,28 @@ export default class App extends Component {
     updatedPortfolioItemList.push(this.createPortfolioItem(stock))
     this.setState({
       portfolioItemList: updatedPortfolioItemList
-    })
+    }, this.updateMetric)
     this.removeStock(stock.id)
   }
 
   removeStock(id) {
-    const { priceData } = this.state
-    let updatedStocksPool = priceData.filter(item => {
+    const { stocksData } = this.state
+    let updatedStocksPool = stocksData.filter(item => {
       return item.id !== id
     })
 
     this.setState({
-      priceData: updatedStocksPool
+      stocksData: updatedStocksPool
     })
   }
 
   addStock(stock) {
-    const { priceData } = this.state
-    let updatedStocksPool = priceData.slice()
+    const { stocksData } = this.state
+    let updatedStocksPool = stocksData.slice()
 
     updatedStocksPool.push(this.createStockItem(stock))
     this.setState({
-      priceData: updatedStocksPool
+      stocksData: updatedStocksPool
     })
   }
 
@@ -67,8 +70,10 @@ export default class App extends Component {
       id: stock.id,
       name: stock.name,
       price: stock.price,
+      eps: stock.eps,
+      historical: stock.historical,
       shares: 1,
-      weightage: 0
+      weightage: 0.00
     }
   }
 
@@ -83,14 +88,17 @@ export default class App extends Component {
       }
       return true
     })
-    this.setState({ portfolioItemList: updatedPortfolioItemList })
+    this.setState({
+      portfolioItemList: updatedPortfolioItemList
+    }, this.updateMetric)
+
     this.addStock(stock)
   }
 
   shareIncrementor(stock) {
     const updatedStock = Object.assign({}, stock)
     updatedStock.shares += 1
-    this.updatePortfolioItemList(updatedStock)
+    this.updatePortfolioItem(updatedStock)
   }
 
   shareDecerementor(stock) {
@@ -98,20 +106,71 @@ export default class App extends Component {
     if (updatedStock.shares > 1) {
       updatedStock.shares -= 1
     }
-    this.updatePortfolioItemList(updatedStock)
+    this.updatePortfolioItem(updatedStock)
   }
 
-  updatePortfolioItemList(stock) {
+  updatePortfolioItem(stock) {
     const { portfolioItemList } = this.state
 
     let updatedPortfolioItemList = portfolioItemList.map((item) => {
       return item.id === stock.id ? stock : item
     })
+    this.setState({
+      portfolioItemList: updatedPortfolioItemList
+    }, this.updateMetric)
+  }
+
+  setNetWorth() {
+    const { portfolioItemList } = this.state
+    const netWorth = portfolioItemList.reduce((networth, stock) => {
+      return networth + stock.price * stock.shares
+    }, 0)
+
+    this.setState({ netWorth: netWorth.toFixed(2) }, this.setWeightage)
+  }
+
+  setWeightage() {
+    const { portfolioItemList, netWorth } = this.state
+    const updatedPortfolioItemList = portfolioItemList.map(stock => {
+      stock.weightage = ((stock.price * stock.shares) / netWorth).toFixed(2)
+      return stock
+    })
+
     this.setState({ portfolioItemList: updatedPortfolioItemList })
   }
 
+  setPE_Ratio() {
+    const { portfolioItemList, netWorth } = this.state
+    const totalEps = portfolioItemList.reduce((totalEps, stock) => {
+      return totalEps + stock.eps * stock.shares
+    }, 0)
+
+    this.setState({ PE_Ratio: (netWorth / totalEps).toFixed(2) })
+  }
+
+  getHistoricalMatrix() {
+    const { portfolioItemList } = this.state
+    const historicalMatrix = []
+    portfolioItemList.forEach(stock => {
+      historicalMatrix.push(stock.historical)
+    })
+    return historicalMatrix
+  }
+
+  setGraphData() {
+    const historicalMatrix = this.getHistoricalMatrix()
+    console.log(historicalMatrix);
+
+  }
+
+  updateMetric() {
+    this.setNetWorth()
+    this.setPE_Ratio()
+    this.setGraphData()
+  }
+
   render() {
-    const { portfolioItemList, priceData } = this.state
+    const { portfolioItemList, stocksData, netWorth, PE_Ratio } = this.state
     return (
       <div className='portfolio-wrapper'>
         <div className='portfolio-container'>
@@ -119,10 +178,12 @@ export default class App extends Component {
 
           <StocksPool
             addPortfolioItem={this.addPortfolioItem}
-            priceData={priceData}
+            stocksData={stocksData}
           />
 
           <ManagePortfolio
+            netWorth={netWorth}
+            PE_Ratio={PE_Ratio}
             shareIncrementor={this.shareIncrementor}
             shareDecerementor={this.shareDecerementor}
             portfolioItemList={portfolioItemList}
