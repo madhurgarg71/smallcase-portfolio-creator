@@ -1,5 +1,5 @@
 {
-  "name": "smallcase portfolio creator",
+  "name": "smallcase-portfolio-creator",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -28,8 +28,11 @@
     "webpack-hot-middleware": "^2.10.0"
   },
   "dependencies": {
+    "chart.js": "^1.1.1",
     "lodash.merge": "^4.6.0",
+    "moment": "^2.18.1",
     "react": "^0.14.6",
+    "react-chartjs": "^0.8.0",
     "react-dom": "^0.14.6"
   }
 }
