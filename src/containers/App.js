@@ -61,7 +61,9 @@ export default class App extends Component {
     return {
       id: stock.id,
       name: stock.name,
-      price: stock.price
+      price: stock.price,
+      eps: stock.eps,
+      historical: stock.historical
     }
   }
 
@@ -146,9 +148,11 @@ export default class App extends Component {
   setPE_Ratio() {
     const { portfolioItemList, netWorth } = this.state
     const totalEps = portfolioItemList.reduce((totalEps, stock) => {
+      console.log(totalEps, stock.eps, stock.shares);
       return totalEps + stock.eps * stock.shares
     }, 0)
 
+    // console.log(netWorth, totalEps);
     if (portfolioItemList.length) {
       this.setState({ PE_Ratio: (netWorth / totalEps).toFixed(2) })
     } else {
@@ -181,14 +185,18 @@ export default class App extends Component {
             stocksData={stocksData}
           />
 
-          <ManagePortfolio
-            netWorth={netWorth}
-            PE_Ratio={PE_Ratio}
-            shareIncrementor={this.shareIncrementor}
-            shareDecerementor={this.shareDecerementor}
-            portfolioItemList={portfolioItemList}
-            removePortfolioItem={this.removePortfolioItem}
-          />
+          {
+            portfolioItemList.length
+            ? <ManagePortfolio
+              netWorth={netWorth}
+              PE_Ratio={PE_Ratio}
+              shareIncrementor={this.shareIncrementor}
+              shareDecerementor={this.shareDecerementor}
+              portfolioItemList={portfolioItemList}
+              removePortfolioItem={this.removePortfolioItem}
+            />
+            : ''
+          }
 
         </div>
       </div>
