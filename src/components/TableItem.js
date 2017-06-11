@@ -1,5 +1,4 @@
 import React from 'react'
-import { getIcon } from './utils'
 
 class TableItem extends React.Component {
   constructor(props) {

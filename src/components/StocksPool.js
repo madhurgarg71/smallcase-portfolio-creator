@@ -1,5 +1,5 @@
 import React from 'react'
-import { getIcon } from './utils'
+import { getIcon } from './../utils'
 import StockItem from './StockItem'
 
 class StocksPool extends React.Component {

@@ -308,7 +308,6 @@ section {
     vertical-align: top;
     width: calc((100% - 40px) / 3);
     &.portfolio {
-      // width: 40%;
     }
     &.graph {
       margin: 0 20px;
@@ -316,7 +315,6 @@ section {
       vertical-align: bottom;
     }
     &.total-panel {
-      // width: 25%;
       vertical-align: bottom;
       .table {
         width: 100%;

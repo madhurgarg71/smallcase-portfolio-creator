@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import './index.scss'
-import { getStocksData } from './utils'
+import './../index.scss'
+import { getStocksData } from './../utils'
 
-import StocksPool from './StocksPool'
-import ManagePortfolio from './ManagePortfolio'
+import StocksPool from './../components/StocksPool'
+import ManagePortfolio from './../components/ManagePortfolio'
 
 export default class App extends Component {
   constructor(props) {
@@ -159,14 +159,14 @@ export default class App extends Component {
 
   setGraphData() {
     const historicalMatrix = this.getHistoricalMatrix()
-    console.log(historicalMatrix);
+    // console.log(historicalMatrix);
 
   }
 
   updateMetric() {
     this.setNetWorth()
     this.setPE_Ratio()
-    this.setGraphData()
+    // this.setGraphData()
   }
 
   render() {

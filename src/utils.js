@@ -49,10 +49,9 @@ export function getHistoricalData() {
 }
 
 function mapHistoricPriceToDate(points) {
-  const transformedPoints = points.map(item => {
-    return {
-      [`${Moment(item.date).format('MMM Do YY')}`]: item.price
-    }
+  let transformedPoints = {}
+   points.forEach(item => {
+    transformedPoints[Moment(item.date).format('MMM Do YYYY')] = item.price
   })
   return transformedPoints
 }
@@ -66,11 +65,22 @@ export function constructStocksData() {
       price: data.price[stockName],
       eps: data.eps[stockName],
       name: stockName,
-      historical: mapHistoricPriceToDate(data.historical[stockName].point)
+      historical: data.historical[stockName]
     })
   }
   return stocksData
 }
+
+export function getDates() {
+  // console.log(Object.keys(getStocksData()[0].historical));
+  // const dates = Object.keys(getStocksData()[0].historical)
+  // dates.sort((a, b) => {
+  //   return new Date(b) - new Date(a)
+  // })
+  // console.log(dates);
+}
+
+getDates()
 
 export function getStocksData() {
   return constructStocksData()
