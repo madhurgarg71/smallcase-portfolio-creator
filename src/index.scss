@@ -1,18 +1,18 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600');
+@import url('https://fonts.googleapis.com/css?family=Lato');
 body {
   background: #f0f0f0;
   margin: 0;
-  font-family: lato;
+  font-family: 'Lato', sans-serif;;
 }
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Lato', sans-serif;
 }
 p {
   margin: 0;
 }
 button {
-  font-family: lato;
+  font-family: 'Lato', sans-serif;;
   cursor: pointer;
   border-style: none;
   padding: 0;
@@ -41,7 +41,7 @@ button {
 
   h3 {
     font-size: 28px;
-    font-family: lato;
+    font-family: 'Lato', sans-serif;;
     font-weight: normal;
     color: #17BCD9;
   }
@@ -218,10 +218,14 @@ section {
   .stocks-pool {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    // justify-content: space-between;
+    // clear: both;
   }
   .stock-item {
+    // display: inline-block;
     overflow: hidden;
+    margin: 18px;
+    // float: left;
     position: relative;
     background: #FFFFFF;
     box-shadow: 0 0 4px 0 rgba(0,0,0,0.20);
@@ -306,16 +310,19 @@ section {
     margin-top: 20px;
     display: inline-block;
     vertical-align: top;
-    width: calc((100% - 40px) / 3);
+    // width: calc((100% - 40px) / 3);
     &.portfolio {
+      width: 30%;
     }
     &.graph {
-      margin: 0 20px;
+      // margin: 0 20px;
       text-align: center;
-      vertical-align: bottom;
+      vertical-align: top;
+      width: 50%;
     }
     &.total-panel {
-      vertical-align: bottom;
+      width: 20%;
+      vertical-align: top;
       .table {
         width: 100%;
       }

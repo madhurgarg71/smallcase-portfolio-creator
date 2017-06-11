@@ -126,9 +126,13 @@ export default class App extends Component {
       return networth + stock.price * stock.shares
     }, 0)
 
-    this.setState({ netWorth: netWorth.toFixed(2) }, this.setWeightage)
+    this.setState({ netWorth: netWorth.toFixed(2) }, this.setNetWorthDenpendentData)
   }
 
+  setNetWorthDenpendentData() {
+    this.setWeightage()
+    this.setPE_Ratio()
+  }
   setWeightage() {
     const { portfolioItemList, netWorth } = this.state
     const updatedPortfolioItemList = portfolioItemList.map(stock => {
@@ -145,7 +149,11 @@ export default class App extends Component {
       return totalEps + stock.eps * stock.shares
     }, 0)
 
-    this.setState({ PE_Ratio: (netWorth / totalEps).toFixed(2) })
+    if (portfolioItemList.length) {
+      this.setState({ PE_Ratio: (netWorth / totalEps).toFixed(2) })
+    } else {
+      this.setState({ PE_Ratio: 0.00 })
+    }
   }
 
   getHistoricalMatrix() {
@@ -157,30 +165,8 @@ export default class App extends Component {
     return historicalMatrix
   }
 
-  setGraphData() {
-    const historicalMatrix = this.getHistoricalMatrix()
-    // console.log(historicalMatrix);
-
-  }
-
-  getTotalEarnings() {
-    const { portfolioItemList } = this.state
-    portfolioItemList.reduce((totalEarnings, stock) => {
-      return totalEarnings + stock.price * stock.shares
-    })
-  }
-
-  // getNetWorthPerDate(date) {
-  //   const { portfolioItemList } = this.state
-  //   portfolioItemList.forEach(stock => {
-  //     if (stock.historical.point[date])
-  //   })
-  // }
-
   updateMetric() {
     this.setNetWorth()
-    this.setPE_Ratio()
-    // this.setGraphData()
   }
 
   render() {

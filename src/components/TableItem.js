@@ -13,9 +13,9 @@ class TableItem extends React.Component {
         <div className='cell'>{ item.price }</div>
         <div className='cell'>
           <div className='counter'>
-            <span onClick={() => { this.props.shareIncrementor(item) }}>+</span>
-            <span>{ item.shares }</span>
             <span onClick={() => { this.props.shareDecerementor(item) }}>-</span>
+            <span>{ item.shares }</span>
+            <span onClick={() => { this.props.shareIncrementor(item) }}>+</span>
           </div>
         </div>
         <div className='cell'>{ item.weightage }</div>

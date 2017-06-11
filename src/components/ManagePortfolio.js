@@ -33,14 +33,21 @@ class ManagePortfolio extends React.Component {
 
   getChartData () {
     // this.setNetWorthAtDate()
+    const { portfolioItemList } = this.state
+    const label = []
+    const data = []
+    for(let date in portfolioItemList[0].historical) {
+      label.push(date)
+      data.push(portfolioItemList[0].historical[date])
+    }
     return {
-      labels:[1, 3, 4],
+      labels: label,
       datasets: [
         {
           borderWidth: 1,
           fillColor: 'rgba(151,187,205,0.2)',
           responsive: true,
-          data: [1, 4, 5]
+          data: data
         }
       ]
     }
@@ -74,7 +81,11 @@ class ManagePortfolio extends React.Component {
         </div>
 
         <div className='panel graph'>
-          <LineChart data={this.getChartData()} />
+          {
+            portfolioItemList.length
+            ? <LineChart data={this.getChartData()} width="500px" height="350px"/>
+            : <div>Add portfolio item to show graph</div>
+          }
         </div>
 
         <div className='panel total-panel'>

@@ -29,7 +29,6 @@
   },
   "dependencies": {
     "chart.js": "^1.1.1",
-    "lodash.merge": "^4.6.0",
     "moment": "^2.18.1",
     "react": "^0.14.6",
     "react-chartjs": "^0.8.0",
