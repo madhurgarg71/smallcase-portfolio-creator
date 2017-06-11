@@ -163,6 +163,20 @@ export default class App extends Component {
 
   }
 
+  getTotalEarnings() {
+    const { portfolioItemList } = this.state
+    portfolioItemList.reduce((totalEarnings, stock) => {
+      return totalEarnings + stock.price * stock.shares
+    })
+  }
+
+  // getNetWorthPerDate(date) {
+  //   const { portfolioItemList } = this.state
+  //   portfolioItemList.forEach(stock => {
+  //     if (stock.historical.point[date])
+  //   })
+  // }
+
   updateMetric() {
     this.setNetWorth()
     this.setPE_Ratio()
