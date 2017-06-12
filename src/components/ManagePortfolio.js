@@ -83,7 +83,7 @@ class ManagePortfolio extends React.Component {
         <div className='panel graph'>
           {
             portfolioItemList.length
-            ? <LineChart data={this.getChartData()} width="500px" height="350px"/>
+            ? <LineChart data={this.getChartData()} width="500px" height="300px"/>
             : <div>Add portfolio item to show graph</div>
           }
         </div>

@@ -135,6 +135,7 @@ export default class App extends Component {
     this.setWeightage()
     this.setPE_Ratio()
   }
+
   setWeightage() {
     const { portfolioItemList, netWorth } = this.state
     const updatedPortfolioItemList = portfolioItemList.map(stock => {
