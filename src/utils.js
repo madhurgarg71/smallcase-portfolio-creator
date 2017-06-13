@@ -23,30 +23,6 @@ export function getIcon(name) {
   }
 }
 
-export function getEpsData() {
-  let epsData = []
-  for (let stock in data.eps) {
-    epsData.push({ name: stock, eps: data.eps[stock] })
-  }
-  return epsData
-}
-
-export function getPriceData() {
-  let priceData = []
-  let i = 0
-  for (let stock in data.price) {
-    priceData.push({ id: `s_${i++}_item`, name: stock, price: data.price[stock] })
-  }
-  return priceData
-}
-
-export function getHistoricalData() {
-  let historicalData = []
-  for (let stock in data.historical) {
-    historicalData.push({ name: stock, historical: data.historical[stock] })
-  }
-  return historicalData
-}
 
 function mapHistoricPriceToDate(points) {
   let transformedPoints = {}
@@ -69,15 +45,6 @@ export function constructStocksData() {
       })
   }
   return stocksData
-}
-
-export function getDates() {
-  // console.log(Object.keys(getStocksData()[0].historical));
-  // const dates = Object.keys(getStocksData()[0].historical)
-  // dates.sort((a, b) => {
-  //   return new Date(b) - new Date(a)
-  // })
-  // console.log(dates);
 }
 
 
