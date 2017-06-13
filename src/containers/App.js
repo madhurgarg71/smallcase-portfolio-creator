@@ -29,7 +29,7 @@ export default class App extends Component {
     const { portfolioItemList } = this.state
     let updatedPortfolioItemList = portfolioItemList.slice()
 
-    updatedPortfolioItemList.push(this.createPortfolioItem(stock))
+    updatedPortfolioItemList.unshift(this.createPortfolioItem(stock))
     this.setState({
       portfolioItemList: updatedPortfolioItemList
     }, this.updateMetric)
